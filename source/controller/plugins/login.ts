@@ -3,7 +3,10 @@ import listener from "./setup/setup-telegram";
 import { execSync } from "child_process";
 import { log } from "@iris/logger";
 
+import login from "@dongdev/fca-unofficial";
+
 const TOKEN = process.env.TELEGRAM_TOKEN ?? process.env.TOKEN;
+const appState = process.env.APPSTATE;
 
 function killOldInstances() {
   try {
@@ -59,7 +62,7 @@ const logger = {
       const botInfo = await bot.getMe();
       log(
         "TELEGRAM",
-        `Login as ${botInfo.username} (${botInfo.id}) successfully.`
+        `Login as \( {botInfo.username} ( \){botInfo.id}) successfully.`
       );
       await listener({ bot });
     } catch (err) {
@@ -70,7 +73,32 @@ const logger = {
     const shutdown = () => bot.stopPolling().finally(() => process.exit(0));
     process.once("SIGINT", shutdown);
     process.once("SIGTERM", shutdown);
-  }
+  },
+
+  async FacebookBot() {
+    if (!appState) {
+      console.error("APPSTATE is missing");
+      return;
+    }
+
+    login({ appState }, (err, api) => {
+      if (err) {
+        console.error("Facebook login error:", err);
+        return;
+      }
+
+      api.listenMqtt((err, event) => {
+        if (err) {
+          console.error("MQTT error:", err);
+          return;
+        }
+
+        if (event.type === "message") {
+          api.sendMessage(event.body, event.threadID);
+        }
+      });
+    });
+  },
 };
 
-export default logger();
+export default logger;
