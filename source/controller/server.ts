@@ -1,6 +1,6 @@
-import { log } from "@iris/logger";
-import { utils } from "@iris/utils";
 import { login } from "@iris/logins";
+import { log } from "@iris/logger";
+import utils from "@iris/utils";
 
 export async function server(){
   log("IRIS", "Starting Iris, please wait...");

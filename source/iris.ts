@@ -6,7 +6,7 @@
 
 import { readFileSync, writeFileSync } from "fs";
 import { server } from "@iris/server";
-import { utils } from "@iris/utils";
+import utils from "@iris/utils";
 import { log } from "@iris/logger";
 import EventEmitter from "events";
 import { join } from "path";
