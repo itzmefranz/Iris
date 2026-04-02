@@ -22,7 +22,6 @@
     "lia-mongo": "^1.2.1",
     "mathjs": "^12.4.3",
     "mongoose": "^8.19.1",
-    "neokex-fca": "^4.5.3",
     "node-telegram-bot-api": "^0.66.0",
     "nodejs": "^0.0.0",
     "os": "^0.1.2",
