@@ -4,7 +4,7 @@ import type TelegramBot from "node-telegram-bot-api";
 
 declare global {
   var bot: import("events").EventEmitter;
-  var Sypher: IrisAI.GlobalIris;
+  var Iris: IrisAI.GlobalIris;
   var log: typeof log2;
 
   namespace IrisAI {
